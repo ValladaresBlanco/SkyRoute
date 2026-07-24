@@ -1,0 +1,84 @@
+<div class="page">
+  <header class="page-head">
+    <span class="eyebrow">N&deg; 002 &mdash; Schedule</span>
+    <h1>Search flights</h1>
+  </header>
+
+  <!-- ================= Filters ================= -->
+  <section class="filters">
+    <div class="field">
+      <label class="eyebrow">From</label>
+      <input type="text" [(ngModel)]="origen" (ngModelChange)="buscar()" placeholder="Any city">
+    </div>
+    <div class="field">
+      <label class="eyebrow">To</label>
+      <input type="text" [(ngModel)]="destino" (ngModelChange)="buscar()" placeholder="Any city">
+    </div>
+    <div class="field">
+      <label class="eyebrow">Date</label>
+      <input type="date" [(ngModel)]="fecha" (ngModelChange)="buscar()">
+    </div>
+    <button class="clear-btn" (click)="limpiar()" *ngIf="origen || destino || fecha">
+      <mat-icon>close</mat-icon> Clear
+    </button>
+  </section>
+
+  <p class="hint eyebrow">
+    § &nbsp;{{ resultados.length }} flight(s) &mdash; all fields are optional, results filter as you type
+  </p>
+
+  <!-- ================= Flight table ================= -->
+  <section class="schedule" *ngIf="resultados.length > 0; else vacio">
+    <div class="sched-head eyebrow">
+      <span>Route</span>
+      <span>Departure</span>
+      <span>Duration</span>
+      <span>Availability</span>
+      <span class="ta-right">Price</span>
+    </div>
+
+    <a class="flight" *ngFor="let v of resultados" [routerLink]="['/reservar', v.id]">
+      <div class="col-route">
+        <span class="route display">{{ v.origen }} <em>→</em> {{ v.destino }}</span>
+        <span class="route-sub mono">{{ v.codigo }} · {{ v.aerolinea }}</span>
+      </div>
+
+      <div class="col-meta">
+        <span class="mono val">{{ v.fechaSalida | date:'MMM d' }}</span>
+        <span class="mono sub">{{ v.fechaSalida | date:'HH:mm' }}</span>
+      </div>
+
+      <div class="col-meta">
+        <span class="mono val">{{ formatearDuracion(v.duracionMinutos) }}</span>
+        <span class="sub" [class.direct]="v.escalas.length === 0">
+          {{ v.escalas.length === 0 ? 'Nonstop' : v.escalas.length + ' stop(s)' }}
+        </span>
+      </div>
+
+      <div class="col-meta">
+        <span class="mono val" [class.few]="asientosDisponibles(v) < 10">{{ asientosDisponibles(v) }} seats</span>
+        <span class="sub">
+          <span class="pill" [ngClass]="{
+            'is-primary': v.estado === 'programado',
+            'is-warn': v.estado === 'retrasado'
+          }">{{ estadoVueloLabel(v.estado) }}</span>
+          · {{ claseLabel(v.clase) }}
+        </span>
+      </div>
+
+      <div class="col-price">
+        <span class="price display">${{ v.precioBase }}</span>
+        <span class="offer eyebrow" [ngClass]="'offer-' + oferta(v)">{{ ofertaLabel(oferta(v)) }}</span>
+        <mat-icon class="go">arrow_forward</mat-icon>
+      </div>
+    </a>
+  </section>
+
+  <ng-template #vacio>
+    <div class="empty">
+      <mat-icon>travel_explore</mat-icon>
+      <p class="display">No flights match your search.</p>
+      <button class="clear-btn" (click)="limpiar()">See the full schedule</button>
+    </div>
+  </ng-template>
+</div>

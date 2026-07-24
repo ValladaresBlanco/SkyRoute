@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1, "nombre": "Carlos", "apellido": "Ramírez", "pasaporte": "CR1234567",
+    "nacionalidad": "CR", "fechaNacimiento": "1990-05-15", "email": "carlos@email.com",
+    "telefono": "+506 8888-0001", "genero": "M", "miembroFrecuente": true,
+    "nivelFrecuente": "oro", "millasAcumuladas": 52000, "necesidadesEspeciales": [],
+    "visasVigentes": ["US", "CA", "EU"], "contactoEmergencia": { "nombre": "Ana Ramírez", "telefono": "+506 8888-0002", "relacion": "spouse" }
+  },
+  {
+    "id": 2, "nombre": "María", "apellido": "López", "pasaporte": "CR7654321",
+    "nacionalidad": "CR", "fechaNacimiento": "2015-09-20", "email": "maria.padre@email.com",
+    "telefono": "+506 8888-0003", "genero": "F", "miembroFrecuente": false,
+    "nivelFrecuente": "ninguno", "millasAcumuladas": 0, "necesidadesEspeciales": ["gluten-free meal"],
+    "visasVigentes": ["US"], "contactoEmergencia": { "nombre": "José López", "telefono": "+506 8888-0004", "relacion": "father" }
+  },
+  {
+    "id": 3, "nombre": "Roberto", "apellido": "Chen", "pasaporte": "US9876543",
+    "nacionalidad": "US", "fechaNacimiento": "1955-01-10", "email": "roberto@email.com",
+    "telefono": "+1 555-0001", "genero": "M", "miembroFrecuente": true,
+    "nivelFrecuente": "platino", "millasAcumuladas": 150000, "necesidadesEspeciales": ["wheelchair", "oxygen"],
+    "visasVigentes": ["CR", "MX", "CO", "PE", "EU"], "contactoEmergencia": { "nombre": "Linda Chen", "telefono": "+1 555-0002", "relacion": "daughter" }
+  },
+  {
+    "id": 4, "nombre": "Sofía", "apellido": "Herrera", "pasaporte": "MX1112233",
+    "nacionalidad": "MX", "fechaNacimiento": "2024-11-01", "email": "sofia.padre@email.com",
+    "telefono": "+52 55-0001", "genero": "F", "miembroFrecuente": false,
+    "nivelFrecuente": "ninguno", "millasAcumuladas": 0, "necesidadesEspeciales": ["bassinet"],
+    "visasVigentes": [], "contactoEmergencia": { "nombre": "Pedro Herrera", "telefono": "+52 55-0002", "relacion": "father" }
+  }
+]

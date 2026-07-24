@@ -1,0 +1,61 @@
+[
+  {
+    "id": 1, "codigo": "SR-1001", "aerolinea": "SkyRoute Airlines",
+    "origen": "San José", "destino": "Miami", "paisOrigen": "CR", "paisDestino": "US",
+    "fechaSalida": "2026-04-15T06:00:00", "fechaLlegada": "2026-04-15T11:30:00",
+    "duracionMinutos": 330, "clase": "economica", "precioBase": 450,
+    "asientosTotales": 180, "asientosOcupados": 120,
+    "escalas": [], "estado": "programado", "equipajeIncluidoKg": 23,
+    "tieneWifi": true, "tieneComida": true
+  },
+  {
+    "id": 2, "codigo": "SR-1002", "aerolinea": "SkyRoute Airlines",
+    "origen": "San José", "destino": "Madrid", "paisOrigen": "CR", "paisDestino": "ES",
+    "fechaSalida": "2026-04-16T22:00:00", "fechaLlegada": "2026-04-17T14:00:00",
+    "duracionMinutos": 660, "clase": "ejecutiva", "precioBase": 1200,
+    "asientosTotales": 40, "asientosOcupados": 35,
+    "escalas": [
+      { "ciudad": "Panama City", "pais": "PA", "duracionEsperaMinutos": 120, "aeropuerto": "PTY" }
+    ],
+    "estado": "programado", "equipajeIncluidoKg": 32, "tieneWifi": true, "tieneComida": true
+  },
+  {
+    "id": 3, "codigo": "SR-1003", "aerolinea": "SkyRoute Airlines",
+    "origen": "Miami", "destino": "New York", "paisOrigen": "US", "paisDestino": "US",
+    "fechaSalida": "2026-04-15T14:00:00", "fechaLlegada": "2026-04-15T17:30:00",
+    "duracionMinutos": 210, "clase": "primera", "precioBase": 890,
+    "asientosTotales": 20, "asientosOcupados": 18,
+    "escalas": [], "estado": "programado", "equipajeIncluidoKg": 46,
+    "tieneWifi": true, "tieneComida": true
+  },
+  {
+    "id": 4, "codigo": "SR-1004", "aerolinea": "SkyRoute Airlines",
+    "origen": "San José", "destino": "Bogotá", "paisOrigen": "CR", "paisDestino": "CO",
+    "fechaSalida": "2026-04-17T08:00:00", "fechaLlegada": "2026-04-17T11:00:00",
+    "duracionMinutos": 180, "clase": "economica", "precioBase": 280,
+    "asientosTotales": 180, "asientosOcupados": 45,
+    "escalas": [], "estado": "programado", "equipajeIncluidoKg": 23,
+    "tieneWifi": false, "tieneComida": false
+  },
+  {
+    "id": 5, "codigo": "SR-1005", "aerolinea": "SkyRoute Airlines",
+    "origen": "Mexico City", "destino": "Lima", "paisOrigen": "MX", "paisDestino": "PE",
+    "fechaSalida": "2026-04-18T10:00:00", "fechaLlegada": "2026-04-18T20:00:00",
+    "duracionMinutos": 600, "clase": "economica", "precioBase": 520,
+    "asientosTotales": 200, "asientosOcupados": 200,
+    "escalas": [
+      { "ciudad": "Panama City", "pais": "PA", "duracionEsperaMinutos": 90, "aeropuerto": "PTY" },
+      { "ciudad": "Bogotá", "pais": "CO", "duracionEsperaMinutos": 60, "aeropuerto": "BOG" }
+    ],
+    "estado": "cancelado", "equipajeIncluidoKg": 23, "tieneWifi": true, "tieneComida": false
+  },
+  {
+    "id": 6, "codigo": "SR-1006", "aerolinea": "SkyRoute Airlines",
+    "origen": "San José", "destino": "Miami", "paisOrigen": "CR", "paisDestino": "US",
+    "fechaSalida": "2026-04-15T18:00:00", "fechaLlegada": "2026-04-15T23:30:00",
+    "duracionMinutos": 330, "clase": "economica", "precioBase": 380,
+    "asientosTotales": 180, "asientosOcupados": 170,
+    "escalas": [], "estado": "retrasado", "equipajeIncluidoKg": 23,
+    "tieneWifi": true, "tieneComida": true
+  }
+]

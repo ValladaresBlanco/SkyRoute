@@ -1,0 +1,91 @@
+<div class="page">
+  <header class="page-head">
+    <span class="eyebrow">N&deg; 003 &mdash; Your account</span>
+    <h1>My trips</h1>
+    <p class="page-lead">
+      Your booked trips. Confirm the ones that are pending or cancel them —
+      we'll show the refund based on how far out the flight is.
+    </p>
+  </header>
+
+  <!-- ============ Summary ============ -->
+  <section class="summary">
+    <div class="sum">
+      <span class="sum-value display">{{ resumen.totalReservas }}</span>
+      <span class="sum-label eyebrow">Bookings</span>
+    </div>
+    <div class="sum">
+      <span class="sum-value display">${{ resumen.ingresosTotales | number:'1.0-0' }}</span>
+      <span class="sum-label eyebrow">Total spent</span>
+    </div>
+    <div class="sum">
+      <span class="sum-value display">{{ resumen.pasajerosUnicos }}</span>
+      <span class="sum-label eyebrow">Travelers</span>
+    </div>
+  </section>
+
+  <!-- ============ Empty ============ -->
+  <div *ngIf="reservas.length === 0" class="empty">
+    <mat-icon>inbox</mat-icon>
+    <p class="display">No trips booked yet.</p>
+    <a class="link-underline" routerLink="/buscar">Search flights <span>&rarr;</span></a>
+  </div>
+
+  <!-- ============ List ============ -->
+  <mat-accordion class="list" *ngIf="reservas.length > 0">
+    <mat-expansion-panel *ngFor="let r of reservas">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon class="state" [style.color]="estadoColor(r.estado)">{{ estadoIcon(r.estado) }}</mat-icon>
+          <span class="code mono">{{ r.codigoReserva }}</span>
+        </mat-panel-title>
+        <mat-panel-description>
+          <span class="route display">{{ r.vuelo.origen }} <em>→</em> {{ r.vuelo.destino }}</span>
+          <span class="spacer"></span>
+          <span class="price mono">${{ r.precioTotal }}</span>
+          <span class="pill" [style.color]="estadoColor(r.estado)" [style.border-color]="estadoColor(r.estado)">
+            {{ estadoLabel(r.estado) }}
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div class="detail">
+        <div class="detail-col">
+          <span class="eyebrow">§ &nbsp;Flight</span>
+          <p><span class="k">Code</span><span class="v mono">{{ r.vuelo.codigo }}</span></p>
+          <p><span class="k">Route</span><span class="v">{{ r.vuelo.origen }} → {{ r.vuelo.destino }}</span></p>
+          <p><span class="k">Departure</span><span class="v mono">{{ r.vuelo.fechaSalida | date:'MMM d, y · HH:mm' }}</span></p>
+          <p><span class="k">Class</span><span class="v">{{ claseLabel(r.vuelo.clase) }}</span></p>
+        </div>
+
+        <div class="detail-col">
+          <span class="eyebrow">§ &nbsp;Travelers ({{ r.pasajeros.length }})</span>
+          <p *ngFor="let p of r.pasajeros">
+            <span class="v">{{ p.nombreCompleto }}</span>
+            <span class="k mono">{{ p.pasaporte }} · {{ categoriaLabel(p.categoria) }}</span>
+          </p>
+        </div>
+
+        <div class="detail-col">
+          <span class="eyebrow">§ &nbsp;History</span>
+          <p *ngFor="let c of r.historialCambios">
+            <span class="k mono">{{ c.fecha | date:'MMM d, HH:mm' }}</span>
+            <span class="v">{{ c.descripcion }}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="detail-foot">
+        <span class="total mono">Total <strong>${{ r.precioTotal }} {{ r.moneda }}</strong></span>
+        <div class="actions" *ngIf="r.estado === 'pendiente' || r.estado === 'confirmada'">
+          <button class="btn" *ngIf="r.estado === 'pendiente'" (click)="confirmar(r.id)">
+            <mat-icon>check</mat-icon> Confirm
+          </button>
+          <button class="btn ghost" (click)="cancelar(r.id)">
+            <mat-icon>close</mat-icon> Cancel
+          </button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

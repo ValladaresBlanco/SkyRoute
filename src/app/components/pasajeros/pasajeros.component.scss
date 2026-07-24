@@ -1,0 +1,116 @@
+.roster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.pax {
+  --accent: var(--amber);
+  background: var(--ink);
+  padding: 28px 28px 30px;
+  border-top: 2px solid transparent;
+  transition: background .25s, border-top-color .25s;
+
+  &:hover { background: var(--ink-2); border-top-color: var(--accent); }
+
+  &.c-amber  { --accent: var(--c-amber); }
+  &.c-sky    { --accent: var(--c-sky); }
+  &.c-rose   { --accent: var(--c-rose); }
+  &.c-sage   { --accent: var(--c-sage); }
+  &.c-violet { --accent: var(--c-violet); }
+}
+
+.pax-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+
+  .pax-index { color: var(--faint); }
+  .pax-nat {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 3px 9px;
+    border-radius: 100px;
+  }
+}
+
+.pax-name {
+  font-size: 28px;
+  color: var(--cream);
+  line-height: 1.05;
+  margin-bottom: 6px;
+}
+
+.pax-passport {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+  display: block;
+  margin-bottom: 20px;
+}
+
+.pax-body { display: flex; flex-direction: column; }
+
+.pax-row {
+  display: grid;
+  grid-template-columns: 88px 1fr;
+  gap: 14px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-top: 1px solid var(--line);
+
+  .eyebrow { color: var(--faint); padding-top: 2px; }
+  .val { font-size: 14px; color: var(--text); line-height: 1.5; word-break: break-word; }
+  .miles { font-size: 12px; color: var(--muted); margin-left: 8px; }
+  .accent-pill { color: var(--accent); border-color: var(--accent); }
+}
+
+/* ---- Vuelos reservados ---- */
+.pax-flights {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.flights-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent);
+  margin-bottom: 14px;
+  mat-icon { font-size: 15px; width: 15px; height: 15px; }
+}
+.no-flights {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  .link-underline { font-size: 11px; }
+}
+.flight-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--line);
+  &:last-child { border-bottom: none; }
+
+  .fl-route { font-family: var(--font-serif); font-size: 16px; color: var(--cream); }
+  .fl-meta { font-size: 11px; color: var(--faint); letter-spacing: 0.04em; }
+  &:hover .fl-route { color: var(--accent); }
+}
+
+.pax-needs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}

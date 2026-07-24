@@ -1,0 +1,132 @@
+.dashboard {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 5vw, 64px);
+}
+
+/* ---------------- Hero ---------------- */
+.hero {
+  position: relative;
+  padding: clamp(48px, 9vw, 104px) 0 64px;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: -20%; right: -20%; bottom: -40%;
+    height: 90%;
+    background: radial-gradient(60% 100% at 70% 100%,
+      rgba(224, 145, 63, 0.22) 0%,
+      rgba(224, 145, 63, 0.06) 40%,
+      transparent 72%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  > * { position: relative; z-index: 1; }
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(36px, 8vw, 88px);
+}
+
+.hero-title.hero-title {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: normal;
+  font-size: clamp(56px, 12vw, 132px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin: 0 0 34px;
+
+  em { font-style: italic; font-weight: 500; color: var(--amber); }
+}
+
+.hero-lead {
+  max-width: 460px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 30px;
+}
+
+/* ---------------- Secciones ---------------- */
+.section { padding: 56px 0; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 32px;
+  .eyebrow { color: var(--faint); }
+}
+.link-underline.sm { font-size: 11px; }
+
+/* ---------------- Destinos ---------------- */
+.destinos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.destino {
+  --accent: var(--amber);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 26px 26px;
+  background: var(--ink);
+  border-top: 2px solid transparent;
+  transition: background .25s, border-top-color .25s;
+
+  &:hover { background: var(--ink-2); border-top-color: var(--accent); }
+  &.c-amber { --accent: var(--c-amber); } &.c-sky { --accent: var(--c-sky); }
+  &.c-rose { --accent: var(--c-rose); } &.c-sage { --accent: var(--c-sage); }
+  &.c-violet { --accent: var(--c-violet); }
+}
+.destino-index { color: var(--accent); }
+.destino-city { font-size: 30px; color: var(--cream); line-height: 1.05; }
+.destino-foot {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 6px;
+  .eyebrow { color: var(--faint); }
+  .destino-price { font-size: 20px; color: var(--text); }
+}
+.destino-count { font-size: 11px; color: var(--faint); letter-spacing: 0.06em; }
+
+/* ---------------- Tus viajes ---------------- */
+.trips-empty {
+  padding: 20px 0;
+  p.display { font-size: clamp(26px, 4vw, 38px); color: var(--cream); margin-bottom: 14px; }
+  p.muted { font-size: 15px; color: var(--muted); max-width: 460px; margin-bottom: 24px; line-height: 1.6; }
+}
+
+.next-trip {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--amber);
+  border-radius: 4px;
+  padding: 30px clamp(24px, 4vw, 40px);
+  background: var(--ink-1);
+}
+.next-label { color: var(--amber); display: block; margin-bottom: 18px; }
+.next-route { display: flex; flex-direction: column; gap: 6px; margin-bottom: 26px; }
+.next-route .route { font-size: clamp(28px, 4vw, 42px); color: var(--cream);
+  em { font-style: normal; color: var(--amber); margin: 0 6px; } }
+.next-code { font-size: 12px; letter-spacing: 0.1em; color: var(--faint); }
+.next-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 26px;
+  div { display: flex; flex-direction: column; gap: 8px; }
+  .eyebrow { color: var(--faint); }
+  .mono { font-size: 16px; color: var(--text); }
+}

@@ -1,0 +1,87 @@
+<!-- Editorial topbar: brand on the left, live clock on the right -->
+<header class="topbar">
+  <button class="icon-btn" (click)="sidenavOpened = !sidenavOpened" aria-label="Menu">
+    <mat-icon>{{ sidenavOpened ? 'menu_open' : 'menu' }}</mat-icon>
+  </button>
+
+  <a class="brand" routerLink="/dashboard">
+    <mat-icon class="brand-mark">flight</mat-icon>
+    <span class="brand-name">SkyRoute</span>
+  </a>
+
+  <span class="topbar-spacer"></span>
+
+  <span class="flight-tag eyebrow">
+    {{ ahora | date:'EEEE, MMM d' }} &nbsp;·&nbsp; <span class="accent">{{ ahora | date:'HH:mm:ss' }}</span>
+  </span>
+
+  <button class="icon-btn theme-btn" (click)="alternarTema()" [attr.aria-label]="tema === 'dark' ? 'Light mode' : 'Dark mode'">
+    <mat-icon>{{ tema === 'dark' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+  </button>
+</header>
+
+<mat-sidenav-container class="app-container">
+  <mat-sidenav [opened]="sidenavOpened" [mode]="esMovil ? 'over' : 'side'"
+               (closedStart)="sidenavOpened = false" class="app-sidenav">
+    <div class="nav-eyebrow eyebrow">§ &nbsp;Navigation</div>
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="active" (click)="cerrarSiMovil()">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+        <span class="nav-index mono">01</span>
+      </a>
+      <a routerLink="/buscar" routerLinkActive="active" (click)="cerrarSiMovil()">
+        <mat-icon>search</mat-icon>
+        <span>Search flights</span>
+        <span class="nav-index mono">02</span>
+      </a>
+      <a routerLink="/reservas" routerLinkActive="active" (click)="cerrarSiMovil()">
+        <mat-icon>confirmation_number</mat-icon>
+        <span>My trips</span>
+        <span class="nav-index mono">03</span>
+      </a>
+      <a routerLink="/pasajeros" routerLinkActive="active" (click)="cerrarSiMovil()">
+        <mat-icon>people</mat-icon>
+        <span>My travelers</span>
+        <span class="nav-index mono">04</span>
+      </a>
+    </nav>
+
+    <div class="nav-footer eyebrow">
+      SkyRoute &nbsp;·&nbsp; <span class="accent">Season 26·A</span>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="app-content">
+    <router-outlet></router-outlet>
+
+    <footer class="site-footer">
+      <div class="foot-brand">
+        <div class="foot-mark">
+          <mat-icon class="brand-mark">flight</mat-icon>
+          <span class="brand-name">SkyRoute</span>
+        </div>
+        <p class="foot-tag display"><em>A quieter way</em> to cross the sky.</p>
+      </div>
+
+      <nav class="foot-nav">
+        <span class="eyebrow">§ &nbsp;Explore</span>
+        <a routerLink="/dashboard" (click)="cerrarSiMovil()">Home</a>
+        <a routerLink="/buscar" (click)="cerrarSiMovil()">Search flights</a>
+        <a routerLink="/reservas" (click)="cerrarSiMovil()">My trips</a>
+        <a routerLink="/pasajeros" (click)="cerrarSiMovil()">My travelers</a>
+      </nav>
+
+      <div class="foot-meta">
+        <span class="eyebrow">§ &nbsp;Flight deck</span>
+        <span class="mono">{{ ahora | date:'EEEE, MMM d, y' }}</span>
+        <span class="mono accent">{{ ahora | date:'HH:mm' }} · Season 26·A</span>
+      </div>
+
+      <div class="foot-bottom">
+        <span class="eyebrow">Built by <span class="accent">Jorge Valladares</span> &middot; 2025</span>
+        <span class="eyebrow">SkyRoute &copy; {{ ahora | date:'y' }} &mdash; Demo project</span>
+      </div>
+    </footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>

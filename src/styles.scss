@@ -1,0 +1,352 @@
+@use '@angular/material' as mat;
+
+/* ============================================================
+   SkyRoute — Sistema de diseño editorial
+   Navy profundo + acentos ámbar + serif de alto contraste.
+   Todos los colores/fuentes viven aquí como variables (tokens)
+   para mantener la app 100% consistente y fácil de ajustar.
+   ============================================================ */
+
+:root {
+  /* --- Superficies (de más oscuro a más claro) --- */
+  --ink:        #0b1020;   /* fondo de página */
+  --ink-1:      #0e1424;   /* panel / sidenav */
+  --ink-2:      #121a2e;   /* tarjeta */
+  --ink-3:      #1a2338;   /* hover / fila activa */
+
+  /* --- Líneas y texto --- */
+  --line:        rgba(236, 232, 222, 0.10);
+  --line-strong: rgba(236, 232, 222, 0.20);
+  --text:        #ece8de;   /* texto principal */
+  --muted:       #939cb0;   /* texto secundario */
+  --faint:       #616b80;   /* etiquetas muy tenues */
+
+  /* --- Acentos --- */
+  --amber:       #e0913f;   /* acento principal (dorado atardecer) */
+  --amber-soft:  #edb47f;
+  --cream:       #f4f0e5;   /* color de máximo contraste (títulos) */
+  --good:        #5bbf8f;
+  --warnc:       #e0b24a;
+  --bad:         #e06a5a;
+
+  /* --- Paleta de acentos (para variar colores por sección) --- */
+  --c-amber:  #e0913f;
+  --c-sky:    #5aa9e6;   /* azul cielo */
+  --c-rose:   #e07a9b;   /* rosa atardecer */
+  --c-violet: #9d8be0;   /* violeta */
+  --c-sage:   #6fc4a0;   /* verde salvia */
+
+  /* Fondo translúcido del topbar (cambia según tema) */
+  --glass: rgba(11, 16, 32, 0.82);
+  color-scheme: dark;
+}
+
+/* ===================== TEMA CLARO ===================== */
+/* Blanco frío y aireado con slate profundo — limpio y moderno (sin cremas). */
+:root[data-theme="light"] {
+  --ink:        #f5f7fb;   /* fondo blanco frío */
+  --ink-1:      #eef1f8;   /* panel / sidenav */
+  --ink-2:      #ffffff;   /* tarjeta (blanco puro) */
+  --ink-3:      #e7ecf5;   /* hover */
+
+  --line:        rgba(22, 32, 54, 0.10);
+  --line-strong: rgba(22, 32, 54, 0.20);
+  --text:        #1b2536;   /* slate profundo */
+  --muted:       #59647a;
+  --faint:       #97a1b5;
+
+  --amber:       #cf7d24;   /* acentos algo más profundos para contraste sobre blanco */
+  --amber-soft:  #b76a1c;
+  --cream:       #0f1a2e;   /* títulos: navy casi negro */
+  --good:        #1f9e68;
+  --warnc:       #b3821a;
+  --bad:         #d1503c;
+
+  --c-amber:  #cf7d24;
+  --c-sky:    #2b7fd4;
+  --c-rose:   #d1587f;
+  --c-violet: #6c5ce0;
+  --c-sage:   #1f9e75;
+
+  --glass: rgba(245, 247, 251, 0.85);
+  color-scheme: light;
+
+  /* --- Tipografía --- */
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-sans:  'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono:  'JetBrains Mono', 'SFMono-Regular', Menlo, monospace;
+
+  --radius: 4px;
+}
+
+/* ----------------------- Base ----------------------- */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* Anti-desbordamiento horizontal: nada debe salirse del viewport en móvil. */
+*, *::before, *::after { box-sizing: border-box; }
+img, svg, video { max-width: 100%; height: auto; }
+input, select, textarea { max-width: 100%; }
+
+/* Normaliza los headings: el tema Material aplica Roboto + line-height fijo a
+   h1..h6; lo neutralizamos aquí (styles.scss carga después del tema) para que
+   nuestras clases tipográficas (.display, .page-head h1, etc.) manden. */
+h1, h2, h3, h4, h5, h6, p, figure { margin: 0; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+::selection { background: rgba(224, 145, 63, 0.30); color: #fff; }
+
+/* Scrollbar acorde al tema oscuro */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(236,232,222,0.18) transparent;
+}
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb {
+  background: rgba(236,232,222,0.16);
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+/* --------------- Utilidades tipográficas --------------- */
+
+/* Micro-etiqueta monoespaciada en mayúsculas con tracking (ej: "N° 001 — MANIFESTO") */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.eyebrow .accent { color: var(--amber); }
+
+/* Título serif de display */
+.display {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: var(--cream);
+}
+.display em, .serif-italic {
+  font-style: italic;
+  color: var(--amber);
+}
+
+/* Dato numérico/código en monoespaciada */
+.mono { font-family: var(--font-mono); }
+.amber { color: var(--amber); }
+.muted { color: var(--muted); }
+
+/* Encabezado de página estándar (eyebrow + título serif) */
+.page {
+  padding: 40px clamp(20px, 5vw, 64px) 80px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.page-head { margin-bottom: 44px; }
+.page-head .eyebrow { display: block; margin-bottom: 18px; }
+.page-head h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(38px, 6vw, 64px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin: 0;
+}
+.page-head .page-lead {
+  max-width: 520px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+/* Divisor de línea fina */
+.hair { height: 1px; background: var(--line); border: 0; margin: 0; }
+
+/* Botón "pill" editorial y llamativo con flecha animada (ej: "Search flights →").
+   Funciona igual de bien en tema oscuro y claro porque usa tokens. */
+.link-underline {
+  --lu-accent: var(--amber);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--cream);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px 13px 24px;
+  border: 1px solid var(--lu-accent);
+  border-radius: 100px;
+  background: color-mix(in srgb, var(--lu-accent) 10%, transparent);
+  cursor: pointer;
+  position: relative;
+  transition: background .28s ease, color .28s ease, box-shadow .28s ease, transform .28s ease;
+
+  /* La flecha va dentro de un círculo que se desliza */
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--lu-accent);
+    color: var(--ink);
+    font-size: 14px;
+    transition: transform .28s ease, background .28s ease, color .28s ease;
+  }
+
+  &:hover {
+    background: var(--lu-accent);
+    color: var(--ink);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px -10px color-mix(in srgb, var(--lu-accent) 70%, transparent);
+    span { transform: translateX(4px); background: var(--ink); color: var(--lu-accent); }
+  }
+
+  /* Variante compacta para encabezados de sección */
+  &.sm {
+    font-size: 10.5px;
+    padding: 8px 10px 8px 16px;
+    gap: 10px;
+    span { width: 20px; height: 20px; font-size: 12px; }
+  }
+}
+
+/* Píldora de estado */
+.pill {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 100px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.pill.is-primary { color: var(--amber); border-color: rgba(224,145,63,0.45); }
+.pill.is-good    { color: var(--good);  border-color: rgba(91,191,143,0.45); }
+.pill.is-warn    { color: var(--warnc); border-color: rgba(224,178,74,0.45); }
+.pill.is-bad     { color: var(--bad);   border-color: rgba(224,106,90,0.45); }
+
+/* ============================================================
+   Overrides de Angular Material para el tema oscuro editorial
+   ============================================================ */
+
+.mat-mdc-card {
+  background: var(--ink-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+}
+
+/* Botones */
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: var(--amber);
+  --mdc-protected-button-label-text-color: #1a1206;
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.08em;
+  border-radius: 2px !important;
+  box-shadow: none !important;
+}
+.mat-mdc-raised-button.mat-primary:hover { filter: brightness(1.06); }
+
+.mat-mdc-outlined-button, .mat-mdc-stroked-button {
+  --mdc-outlined-button-label-text-color: var(--cream);
+  --mdc-outlined-button-outline-color: var(--line-strong);
+  font-family: var(--font-mono) !important;
+  letter-spacing: 0.08em;
+  border-radius: 2px !important;
+}
+.mat-mdc-button { color: var(--cream); }
+
+/* Campos de formulario (outline) en oscuro */
+.mat-mdc-form-field { width: 100%; }
+.mat-mdc-text-field-wrapper { background: var(--ink-1) !important; border-radius: 2px !important; }
+.mdc-text-field--outlined .mdc-notched-outline__leading,
+.mdc-text-field--outlined .mdc-notched-outline__notch,
+.mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border-color: var(--line-strong) !important;
+}
+.mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.mat-mdc-form-field:hover .mdc-notched-outline__notch,
+.mat-mdc-form-field:hover .mdc-notched-outline__trailing {
+  border-color: var(--amber) !important;
+}
+.mdc-text-field__input { color: var(--text) !important; caret-color: var(--amber); }
+.mat-mdc-form-field .mdc-floating-label,
+.mat-mdc-form-field .mat-mdc-form-field-icon-prefix,
+.mat-mdc-select-value-text,
+.mat-mdc-select-arrow { color: var(--muted) !important; }
+.mdc-text-field--focused .mdc-floating-label { color: var(--amber) !important; }
+input::placeholder { color: var(--faint) !important; }
+
+/* Chips */
+.mat-mdc-chip {
+  background: transparent !important;
+  border: 1px solid var(--line-strong) !important;
+  color: var(--muted) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.06em;
+}
+
+/* Checkbox / select overlay */
+.mdc-checkbox__background { border-color: var(--muted) !important; }
+.mat-mdc-checkbox-checked .mdc-checkbox__background {
+  background-color: var(--amber) !important;
+  border-color: var(--amber) !important;
+}
+.mat-mdc-checkbox label { color: var(--text) !important; }
+
+.cdk-overlay-container .mat-mdc-select-panel,
+.cdk-overlay-container .mat-mdc-menu-panel {
+  background: var(--ink-2) !important;
+  border: 1px solid var(--line-strong);
+}
+.mat-mdc-option { color: var(--text) !important; }
+.mat-mdc-option:hover { background: var(--ink-3) !important; }
+
+/* Expansion panels (historial) */
+.mat-expansion-panel {
+  background: var(--ink-2) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--line) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: none !important;
+}
+.mat-expansion-panel-header { height: auto !important; padding: 18px 22px !important; }
+.mat-expansion-panel-header-title,
+.mat-expansion-panel-header-description { color: var(--text) !important; align-items: center; }
+.mat-expansion-indicator::after { color: var(--muted) !important; }
+
+/* Snackbar */
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: var(--cream);
+  --mdc-snackbar-supporting-text-color: #1a1206;
+  --mat-snack-bar-button-color: #8a5a1e;
+}
+
+/* Divider */
+.mat-divider { border-top-color: var(--line) !important; }

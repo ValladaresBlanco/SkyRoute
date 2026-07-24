@@ -1,0 +1,76 @@
+<div class="dashboard">
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="hero-top eyebrow">
+      <span>N&deg; 001 &mdash; SkyRoute</span>
+      <span class="accent">Season 26·A</span>
+    </div>
+
+    <h1 class="hero-title display">
+      A quieter way<br>
+      <em>to cross</em> the sky.
+    </h1>
+
+    <p class="hero-lead">
+      An airline built for travelers who believe the hours between takeoff and touchdown
+      ought to be beautiful. Slow boarding, warm light, and arrivals that feel like mornings.
+      Pick a destination and book in under a minute.
+    </p>
+
+    <a class="link-underline" routerLink="/buscar">Search flights <span>&rarr;</span></a>
+  </section>
+
+  <hr class="hair">
+
+  <!-- ===================== DESTINATIONS ===================== -->
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">§ &nbsp;Where we fly</span>
+      <a class="link-underline sm" routerLink="/buscar">Full schedule <span>&rarr;</span></a>
+    </div>
+
+    <div class="destinos">
+      <a class="destino" *ngFor="let d of destinos; let i = index"
+         [ngClass]="['c-sky','c-amber','c-rose','c-sage','c-violet'][i % 5]"
+         routerLink="/buscar">
+        <span class="destino-index eyebrow">N&deg; {{ (i + 1) | number:'2.0-0' }}</span>
+        <span class="destino-city display">{{ d.ciudad }}</span>
+        <div class="destino-foot">
+          <span class="eyebrow">From</span>
+          <span class="destino-price mono">${{ d.desde }}</span>
+        </div>
+        <span class="destino-count mono">{{ d.vuelos }} flight(s) available</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===================== YOUR TRIPS ===================== -->
+  <section class="section trips">
+    <div class="section-head">
+      <span class="eyebrow">§ &nbsp;Your trips</span>
+      <a class="link-underline sm" routerLink="/reservas">My trips <span>&rarr;</span></a>
+    </div>
+
+    <!-- No bookings yet -->
+    <div class="trips-empty" *ngIf="misReservas.length === 0">
+      <p class="display">You don't have any trips booked yet.</p>
+      <p class="muted">Find a flight, choose who's traveling, and confirm — it'll show up here, all scheduled.</p>
+      <a class="link-underline" routerLink="/buscar">Start booking <span>&rarr;</span></a>
+    </div>
+
+    <!-- With bookings: show the next one -->
+    <div class="next-trip" *ngIf="proximaReserva as r">
+      <span class="eyebrow next-label">Your next flight</span>
+      <div class="next-route">
+        <span class="route display">{{ r.vuelo.origen }} <em>→</em> {{ r.vuelo.destino }}</span>
+        <span class="next-code mono">{{ r.codigoReserva }} · {{ r.vuelo.codigo }}</span>
+      </div>
+      <div class="next-meta">
+        <div><span class="eyebrow">Departure</span><span class="mono">{{ r.vuelo.fechaSalida | date:'EEE, MMM d · HH:mm' }}</span></div>
+        <div><span class="eyebrow">Travelers</span><span class="mono">{{ r.pasajeros.length }}</span></div>
+        <div><span class="eyebrow">Total</span><span class="mono amber">${{ r.precioTotal }}</span></div>
+      </div>
+      <a class="link-underline" routerLink="/reservas">Manage booking <span>&rarr;</span></a>
+    </div>
+  </section>
+</div>

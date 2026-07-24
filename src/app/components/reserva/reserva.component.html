@@ -1,0 +1,116 @@
+<div class="page">
+  <header class="page-head">
+    <span class="eyebrow">N&deg; 002 &mdash; New booking</span>
+    <h1>Book</h1>
+  </header>
+
+  <!-- Flight not found -->
+  <div *ngIf="!vuelo" class="empty">
+    <mat-icon>error_outline</mat-icon>
+    <p class="display">Flight not found.</p>
+    <a class="link-underline" routerLink="/buscar">Back to search <span>&rarr;</span></a>
+  </div>
+
+  <div *ngIf="vuelo" class="layout">
+    <!-- ============ Main column ============ -->
+    <div class="main">
+      <!-- Flight summary -->
+      <section class="flight-brief">
+        <div class="brief-route">
+          <span class="route display">{{ vuelo.origen }} <em>→</em> {{ vuelo.destino }}</span>
+          <span class="route-sub mono">{{ vuelo.codigo }} · {{ vuelo.aerolinea }}</span>
+        </div>
+        <div class="brief-meta">
+          <div><span class="eyebrow">Departure</span><span class="mono">{{ vuelo.fechaSalida | date:'MMM d · HH:mm' }}</span></div>
+          <div><span class="eyebrow">Duration</span><span class="mono">{{ formatearDuracion(vuelo.duracionMinutos) }}</span></div>
+          <div><span class="eyebrow">Class</span><span class="mono">{{ claseLabel(vuelo.clase) }}</span></div>
+          <div><span class="eyebrow">Seats</span><span class="mono">{{ vuelo.asientosTotales - vuelo.asientosOcupados }}</span></div>
+        </div>
+      </section>
+
+      <!-- Passengers -->
+      <section class="block">
+        <span class="eyebrow block-title">§ &nbsp;01 · Who's traveling?</span>
+        <div class="pax-grid">
+          <button class="pax" *ngFor="let p of pasajerosDisponibles"
+                  [class.on]="estaSeleccionado(p.id)" (click)="toggle(p.id)">
+            <div class="pax-check"><mat-icon>{{ estaSeleccionado(p.id) ? 'check' : 'add' }}</mat-icon></div>
+            <div class="pax-info">
+              <span class="pax-name">{{ nombreCompleto(p) }}</span>
+              <span class="pax-sub mono">{{ p.pasaporte }} · {{ categoriaLabel(categoria(p)) }}</span>
+            </div>
+            <span class="pill is-primary" *ngIf="p.miembroFrecuente">{{ nivelFrecuenteLabel(p.nivelFrecuente) }}</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Extras -->
+      <section class="block">
+        <span class="eyebrow block-title">§ &nbsp;02 · Extras</span>
+        <div class="opts">
+          <mat-checkbox [(ngModel)]="opciones.equipajeExtra" (change)="recalcular()">Extra baggage <b>+$50</b></mat-checkbox>
+          <mat-checkbox [(ngModel)]="opciones.seleccionAsiento" (change)="recalcular()">Seat selection <b>+$25</b></mat-checkbox>
+          <mat-checkbox [(ngModel)]="opciones.seguroViaje" (change)="recalcular()">Travel insurance <b>+$35</b></mat-checkbox>
+          <mat-checkbox [(ngModel)]="opciones.prioridadAbordaje" (change)="recalcular()">Priority boarding <b>+$20</b></mat-checkbox>
+          <mat-form-field appearance="outline" class="meal">
+            <mat-label>Special meal</mat-label>
+            <mat-select [(ngModel)]="opciones.comidaEspecial" (selectionChange)="recalcular()">
+              <mat-option *ngFor="let c of comidasEspeciales" [value]="c.value">{{ c.label }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============ Side panel (price) ============ -->
+    <aside class="side">
+      <div class="ticket">
+        <span class="eyebrow">§ &nbsp;Summary</span>
+
+        <div *ngIf="!precio" class="ticket-empty">
+          <p class="mono">Select at least one traveler to see the price.</p>
+        </div>
+
+        <div *ngIf="precio" class="ticket-body">
+          <div class="t-row"><span>Base fare</span><span class="mono">${{ precio.precioBase }}</span></div>
+          <div class="t-row"><span>Class surcharge</span><span class="mono">+${{ precio.cargoClase }}</span></div>
+          <div class="t-row down"><span>Category discount</span><span class="mono">-${{ precio.descuentoCategoria }}</span></div>
+          <div class="t-row down"><span>Loyalty / group discount</span><span class="mono">-${{ precio.descuentoFrecuente }}</span></div>
+          <div class="t-row"><span>Extras</span><span class="mono">+${{ precio.cargoOpciones }}</span></div>
+          <div class="t-row"><span>Taxes</span><span class="mono">+${{ precio.impuestos }}</span></div>
+
+          <p class="group-hint eyebrow" *ngIf="descuentoGrupal > 0">
+            ✦ Group discount {{ descuentoGrupal }}% applied
+          </p>
+
+          <div class="t-total">
+            <span class="eyebrow">Total</span>
+            <span class="total-value display">${{ precio.total }} <small>USD</small></span>
+          </div>
+        </div>
+
+        <button class="cta" (click)="reservar()" [disabled]="seleccionados.length === 0">
+          Confirm booking · {{ seleccionados.length }} pax
+        </button>
+        <a class="link-underline back sm" routerLink="/buscar">Back to schedule <span>&rarr;</span></a>
+
+        <!-- Result -->
+        <div class="result ok" *ngIf="resultado?.exito">
+          <mat-icon>check_circle</mat-icon>
+          <div>
+            <span class="eyebrow">Booking created</span>
+            <p class="code mono">{{ resultado?.reserva?.codigoReserva }}</p>
+            <a class="link-underline sm" routerLink="/reservas">View in my trips <span>&rarr;</span></a>
+          </div>
+        </div>
+        <div class="result bad" *ngIf="resultado && !resultado.exito">
+          <mat-icon>error_outline</mat-icon>
+          <div>
+            <span class="eyebrow">Couldn't book</span>
+            <p>{{ resultado.error }}</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

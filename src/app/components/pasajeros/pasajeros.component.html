@@ -1,0 +1,69 @@
+<div class="page">
+  <header class="page-head">
+    <span class="eyebrow">N&deg; 004 &mdash; Your account</span>
+    <h1>My travelers</h1>
+    <p class="page-lead">
+      The people saved to your account. When you book a flight you pick them with a tap —
+      no need to retype passport, age or emergency contact.
+    </p>
+  </header>
+
+  <div class="roster">
+    <article class="pax" *ngFor="let p of pasajeros; let i = index" [ngClass]="acentos[i % acentos.length]">
+      <div class="pax-head">
+        <span class="pax-index eyebrow">N&deg; {{ (i + 1) | number:'2.0-0' }}</span>
+        <span class="pax-nat mono">{{ p.nacionalidad }}</span>
+      </div>
+
+      <h2 class="pax-name display">{{ nombreCompleto(p) }}</h2>
+      <span class="pax-passport mono">{{ p.pasaporte }}</span>
+
+      <div class="pax-body">
+        <div class="pax-row">
+          <span class="eyebrow">Age</span>
+          <span class="val">{{ edad(p) }} yrs · {{ categoriaLabel(categoria(p)) }}</span>
+        </div>
+        <div class="pax-row">
+          <span class="eyebrow">Contact</span>
+          <span class="val">{{ p.email }}</span>
+        </div>
+        <div class="pax-row">
+          <span class="eyebrow">Membership</span>
+          <span class="val">
+            <span *ngIf="p.miembroFrecuente" class="pill accent-pill">{{ nivelFrecuenteLabel(p.nivelFrecuente) }}</span>
+            <span *ngIf="p.miembroFrecuente" class="miles mono">{{ p.millasAcumuladas | number }} miles</span>
+            <span *ngIf="!p.miembroFrecuente" class="muted">No membership</span>
+          </span>
+        </div>
+        <div class="pax-row">
+          <span class="eyebrow">Visas</span>
+          <span class="val mono">{{ p.visasVigentes.length > 0 ? p.visasVigentes.join(' · ') : '—' }}</span>
+        </div>
+      </div>
+
+      <!-- Flights this traveler is booked on -->
+      <div class="pax-flights">
+        <span class="eyebrow flights-title">
+          <mat-icon>flight</mat-icon> Booked flights
+        </span>
+
+        <div *ngIf="reservasDe(p).length === 0" class="no-flights">
+          <span class="muted">No flights booked yet.</span>
+          <a class="link-underline sm" routerLink="/buscar">Book <span>&rarr;</span></a>
+        </div>
+
+        <a class="flight-line" *ngFor="let r of reservasDe(p)" routerLink="/reservas">
+          <span class="fl-route">{{ r.vuelo.origen }} → {{ r.vuelo.destino }}</span>
+          <span class="fl-meta mono">
+            {{ r.vuelo.codigo }}
+            <span class="fl-state" [style.color]="estadoColor(r.estado)">· {{ estadoLabel(r.estado) }}</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="pax-needs" *ngIf="p.necesidadesEspeciales.length > 0">
+        <span class="pill is-warn" *ngFor="let n of p.necesidadesEspeciales">{{ n }}</span>
+      </div>
+    </article>
+  </div>
+</div>
