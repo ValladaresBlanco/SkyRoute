@@ -1,6 +1,7 @@
 # SkyRoute
 
 SkyRoute is a web application for managing and booking commercial flights, built with Angular 17 and Angular Material. It covers the full workflow of a travel agency: searching for flights, creating multi-passenger bookings with business-rule validation, calculating prices and taxes, managing passengers, and reviewing statistics from a dashboard.
+<img width="1918" height="881" alt="Screenshot 2026-07-24 140617" src="https://github.com/user-attachments/assets/e510e4b4-f114-41e7-b8c9-44ba9c5a7585" />
 
 The main focus of the project is a service layer that models real airline domain logic (pricing, taxes, travel documentation, refunds, and frequent-flyer miles), designed against interfaces to keep the code testable and maintainable.
 
@@ -17,7 +18,8 @@ The application is organized around four core services, each responsible for one
 
 ### Flight search
 Search flights by origin, destination, and date. Results support layovers, travel classes (economy, business, first), and flight states (scheduled, boarding, in-flight, landed, cancelled, delayed).
-
+<img width="1917" height="877" alt="Screenshot 2026-07-24 140813" src="https://github.com/user-attachments/assets/b120d47f-32f9-4544-b98d-fd634c89aeaa" />
+<img width="1919" height="881" alt="Screenshot 2026-07-24 140650" src="https://github.com/user-attachments/assets/086747c8-c336-4519-9e64-fc5f8a5defa8" />
 ### Booking
 Bookings run through a sequence of nine validation checks before they are accepted, including:
 
@@ -30,22 +32,24 @@ Bookings run through a sequence of nine validation checks before they are accept
 - The departure date is not in the past.
 
 Confirmed bookings can be cancelled, and the refund is calculated based on how far in advance the cancellation happens (100%, 80%, 50%, or 0%).
+<img width="1675" height="816" alt="Screenshot 2026-07-24 141834" src="https://github.com/user-attachments/assets/e6f237da-56c6-48ed-a034-f1b2cab4f4cc" />
+
 
 ### Passenger management
 - Automatic categorization by age: infant, child, adult, and senior.
 - Data validation for passport format, email, phone, and emergency contact, with stricter rules for infants.
 - Document and visa verification based on free-transit agreements between countries.
 - Frequent-flyer tiers (bronze through platinum) with tier benefits and earned-miles calculation.
+<img width="1918" height="875" alt="Screenshot 2026-07-24 140832" src="https://github.com/user-attachments/assets/24a1eea2-b1ef-4b7c-bd71-7a0b80c6cdba" />
+<img width="1916" height="884" alt="Screenshot 2026-07-24 140847" src="https://github.com/user-attachments/assets/707250f1-6c53-4ca2-ad75-fc70c8166b6c" />
 
 ### Pricing engine
 - Class-based charges, discounts by passenger category, and discounts by frequent-flyer tier.
 - Group discounts based on the number of passengers.
 - Tax calculation that averages the tax rates of the origin and destination countries.
 - Multi-currency conversion (USD, EUR, CRC, MXN, COP, PEN, ARS) and a price-competitiveness evaluation.
+<img width="1675" height="816" alt="Screenshot 2026-07-24 141834" src="https://github.com/user-attachments/assets/900bb46e-8c67-47c0-aeeb-e6467c1e23ad" />
 
-### Dashboard and history
-- A dashboard showing flight occupancy statistics and booking revenue.
-- A booking history view with change tracking for each reservation.
 
 ## Tech stack
 
