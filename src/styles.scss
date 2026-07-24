@@ -341,11 +341,26 @@ input::placeholder { color: var(--faint) !important; }
 .mat-expansion-panel-header-description { color: var(--text) !important; align-items: center; }
 .mat-expansion-indicator::after { color: var(--muted) !important; }
 
-/* Snackbar */
+/* Snackbar — legible en ambos temas (superficie oscura + texto claro + Close ámbar) */
 .mat-mdc-snack-bar-container {
-  --mdc-snackbar-container-color: var(--cream);
-  --mdc-snackbar-supporting-text-color: #1a1206;
-  --mat-snack-bar-button-color: #8a5a1e;
+  --mdc-snackbar-container-color: #1b2436;
+  --mdc-snackbar-supporting-text-color: #ece8de;
+  --mat-snack-bar-button-color: #e0913f;
+
+  .mdc-snackbar__surface {
+    background-color: #1b2436 !important;
+    border: 1px solid rgba(236, 232, 222, 0.14);
+  }
+  .mdc-snackbar__label,
+  .mat-mdc-snack-bar-label {
+    color: #ece8de !important;
+  }
+  .mat-mdc-button,
+  .mat-mdc-button .mdc-button__label {
+    color: #e0913f !important;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+  }
 }
 
 /* Divider */
